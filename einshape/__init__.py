@@ -84,43 +84,43 @@ def numpy_einshape(
 
 def tf_einshape(
     equation: str,
-    x: Union['tf.Tensor', Any],
+    value: Union['tf.Tensor', Any],
     **index_sizes: Union[int, 'tf.Tensor'],
 ) -> 'tf.Tensor':
-  """Reshapes `x` according to the given Shape Equation.
+  """Reshapes `value` according to the given Shape Equation.
 
   Args:
     equation: The Shape Equation specifying the index regrouping and reordering.
-    x: Input tensor, or tensor-like object.
+    value: Input tensor, or tensor-like object.
     **index_sizes: Sizes of indices, where they cannot be inferred from
       `input_shape`.
 
   Returns:
-    Tensor derived from `x` by reshaping as specified by `equation`.
+    Tensor derived from `value` by reshaping as specified by `equation`.
   """
   import einshape.src.tensorflow.tf_ops  # pylint:disable=g-import-not-at-top
   global tf_einshape
   tf_einshape = einshape.src.tensorflow.tf_ops.einshape  # pytype:disable=module-attr
-  return tf_einshape(equation, x, **index_sizes)
+  return tf_einshape(equation, value, **index_sizes)
 
 
 def torch_einshape(
     equation: str,
-    x: Union['torch.Tensor', Any],
-    **index_sizes: Union[int, 'tf.Tensor'],
+    value: Union['torch.Tensor', Any],
+    **index_sizes: Union[int, 'torch.Tensor'],
 ) -> 'torch.Tensor':
-  """Reshapes `x` according to the given Shape Equation.
+  """Reshapes `value` according to the given Shape Equation.
 
   Args:
     equation: The Shape Equation specifying the index regrouping and reordering.
-    x: Input tensor, or tensor-like object.
+    value: Input tensor, or tensor-like object.
     **index_sizes: Sizes of indices, where they cannot be inferred from
       `input_shape`.
 
   Returns:
-    Tensor derived from `x` by reshaping as specified by `equation`.
+    Tensor derived from `value` by reshaping as specified by `equation`.
   """
   import einshape.src.torch.torch_ops  # pylint:disable=g-import-not-at-top
   global torch_einshape
   torch_einshape = einshape.src.torch.torch_ops.einshape  # pytype:disable=module-attr
-  return torch_einshape(equation, x, **index_sizes)
+  return torch_einshape(equation, value, **index_sizes)
