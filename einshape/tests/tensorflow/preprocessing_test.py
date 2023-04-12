@@ -20,7 +20,7 @@ from einshape.src import abstract_ops
 from einshape.src.tensorflow import preprocessing
 
 
-class PreprocessingTest(absltest.TestCase):
+class TensorFlowPreprocessingTest(absltest.TestCase):
 
   def test_reshapes_and_transposes_preserved(self):
     ops = [

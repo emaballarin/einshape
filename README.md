@@ -33,9 +33,9 @@ Einshape can be installed with the following command:
 pip3 install git+https://github.com/deepmind/einshape
 ```
 
-Einshape will work with either Jax or TensorFlow. To allow for that it does not
-list either as a requirement, so it is necessary to ensure that Jax or
-TensorFlow is installed separately.
+Einshape will work with JAX, TensorFlow, NumPy and PyTorch. To allow for that
+it does not list either as a requirement, so it is necessary to ensure that
+JAX/TensorFlow/NumPy/PyTorch are installed separately.
 
 ## Usage
 
@@ -68,6 +68,17 @@ from einshape import numpy_einshape as einshape
 import numpy as np
 
 a = np.array([[1, 2], [3, 4]])
+b = einshape("ij->(ij)", a)
+# b is [1, 2, 3, 4]
+```
+
+PyTorch version:
+
+```py
+from einshape import torch_einshape as einshape
+import torch
+
+a = torch.Tensor([[1,2], [3,4]])
 b = einshape("ij->(ij)", a)
 # b is [1, 2, 3, 4]
 ```

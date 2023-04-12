@@ -24,7 +24,7 @@ import jax.numpy as jnp
 import numpy as np
 
 
-class EngineTest(parameterized.TestCase):
+class JaxEngineTest(parameterized.TestCase):
 
   @parameterized.named_parameters(test_cases.TEST_CASES)
   def test_common(self, x: Sequence[Any], equation: str,

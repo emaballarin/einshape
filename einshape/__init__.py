@@ -35,6 +35,7 @@ if typing.TYPE_CHECKING:
   import jax.numpy as jnp
   import numpy as np
   import tensorflow as tf
+  import torch
 
 
 def jax_einshape(
@@ -101,3 +102,25 @@ def tf_einshape(
   global tf_einshape
   tf_einshape = einshape.src.tensorflow.tf_ops.einshape  # pytype:disable=module-attr
   return tf_einshape(equation, x, **index_sizes)
+
+
+def torch_einshape(
+    equation: str,
+    x: Union['torch.Tensor', Any],
+    **index_sizes: Union[int, 'tf.Tensor'],
+) -> 'torch.Tensor':
+  """Reshapes `x` according to the given Shape Equation.
+
+  Args:
+    equation: The Shape Equation specifying the index regrouping and reordering.
+    x: Input tensor, or tensor-like object.
+    **index_sizes: Sizes of indices, where they cannot be inferred from
+      `input_shape`.
+
+  Returns:
+    Tensor derived from `x` by reshaping as specified by `equation`.
+  """
+  import einshape.src.torch.torch_ops  # pylint:disable=g-import-not-at-top
+  global torch_einshape
+  torch_einshape = einshape.src.torch.torch_ops.einshape  # pytype:disable=module-attr
+  return torch_einshape(equation, x, **index_sizes)

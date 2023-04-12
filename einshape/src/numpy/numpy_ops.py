@@ -13,7 +13,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-"""Einshape implementation for JAX."""
+"""Einshape implementation for NumPy."""
 
 from typing import Any, Union
 

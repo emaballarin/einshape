@@ -20,7 +20,7 @@ from einshape.src.tensorflow import tf_ops
 import tensorflow.compat.v1 as tf
 
 
-class EinshapeTest(tf.test.TestCase):
+class TensorFlowEinshapeTest(tf.test.TestCase):
 
   def test_simple_reshape(self):
     x = tf.constant([3, 5], dtype=tf.int64)

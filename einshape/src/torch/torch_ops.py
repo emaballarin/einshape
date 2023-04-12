@@ -22,8 +22,8 @@ from einshape.src import backend
 import torch
 
 
-class _JaxBackend(backend.Backend[torch.Tensor]):
-  """Jax implementation of reshaping ops."""
+class _TorchBackend(backend.Backend[torch.Tensor]):
+  """PyTorch implementation of reshaping ops."""
 
   def reshape(self, x: torch.Tensor, op: abstract_ops.Reshape) -> torch.Tensor:
     return x.reshape(op.shape)
@@ -58,4 +58,4 @@ def einshape(
   """
   if not isinstance(value, torch.Tensor):
     value = torch.tensor(value)
-  return _JaxBackend().exec(equation, value, value.shape, **index_sizes)
+  return _TorchBackend().exec(equation, value, value.shape, **index_sizes)
