@@ -120,6 +120,9 @@ def generate_ops(
     Unoptimised list of `Reshape` and `Transpose` instructions that abstractly
       specify what concrete tf/np/jax operations should be applied.
   """
+  if any([c in hebrew_letters for c in equation]):
+    raise ValueError('Hebrew letters are reserved for wildcard expansion')
+
   expression_list = equation.split('->')
   if len(expression_list) != 2:
     raise ValueError('Shape Equation requires a single "->"')
