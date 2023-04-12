@@ -16,11 +16,12 @@
 """Einshape engine."""
 
 import re
-import string
+import functools
 from typing import Any, Sequence
 
 from einshape.src import abstract_ops
 
+hebrew_letters = "אבגדהוזחטיכלמנסעפצקרשת"
 
 Indices = str
 
@@ -96,15 +97,16 @@ def _expand_wildcard(expr: str, num_wildcard_dims: int) -> str:
     Copy of `expr` with the wildcard '...' replaced by indices 'A', 'B', ...
   """
   # Introduce indices A, B, C, ... for the wildcard.
-  if num_wildcard_dims > len(string.ascii_uppercase):
+  if num_wildcard_dims > len(hebrew_letters):
     raise ValueError('Too many dimensions')
-  expanded_wildcard = string.ascii_uppercase[:num_wildcard_dims]
+  expanded_wildcard = hebrew_letters[:num_wildcard_dims]
   return expr.replace('...', expanded_wildcard)
 
 
+@functools.cache
 def generate_ops(
     equation: str, input_shape: Sequence[Any], **index_sizes: Any
-    ) -> Sequence[abstract_ops.ShapeOp]:
+) -> Sequence[abstract_ops.ShapeOp]:
   """Compiles a Shape Equation into Reshape/Transpose ops.
 
   Args:
@@ -118,10 +120,6 @@ def generate_ops(
     Unoptimised list of `Reshape` and `Transpose` instructions that abstractly
       specify what concrete tf/np/jax operations should be applied.
   """
-  # Upper-case indices are reserved for handling '...' wildcards.
-  if equation != equation.lower():
-    raise ValueError('Shape Equation may not use upper-case indices')
-
   expression_list = equation.split('->')
   if len(expression_list) != 2:
     raise ValueError('Shape Equation requires a single "->"')
