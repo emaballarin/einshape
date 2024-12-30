@@ -34,7 +34,10 @@ from einshape.src import backend
 if typing.TYPE_CHECKING:
   import jax.numpy as jnp
   import numpy as np
-  import tensorflow as tf
+  try:
+    import tensorflow as tf
+  except ImportError:
+    tf = None
   import torch
 
 
